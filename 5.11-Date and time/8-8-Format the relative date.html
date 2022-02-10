@@ -1,0 +1,86 @@
+<!--
+ * @Author: 
+ * @Date: 2022-02-10 21:48:14
+ * @LastEditTime: 2022-02-10 22:08:38
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3"></script>
+    <title>Vue 3 Template</title>
+  </head>
+  <body>
+    <div id="root">
+      <div>This page is about: (description)</div>
+      <button @click="showResult">Execute the code</button>
+      count:{{ count }}
+      <div>
+        <span class="result_des">result:</span>
+        <span v-if="result !== ''">{{ result }}</span>
+        <span v-else class="no_result">No result</span>
+      </div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return { count: 0, result: '' }
+      },
+      methods: {
+        showResult() {
+          this.count += 1
+          // the code you want to excute
+          // Example:
+          // function showMessage(from, text = 'no text given') {
+          //   return from + ': ' + text
+          // }
+          // this.result = showMessage('Ann')
+          function formatDate(date) {
+            let now = new Date()
+            let diff = now - date
+            // console.log(diff)
+            if (diff < 1 * 1000) return 'right now'
+            if (diff < 60 * 1000) return `${diff / 1000} sec. ago`
+            if (60 * 1000 <= diff && diff < 60 * 60 * 1000) {
+              return `${diff / (60 * 1000)} min. ago`
+            }
+            if (diff >= 60 * 60 * 1000) {
+              date = new Date(date)
+              console.log(date)
+              return `${('0' + date.getDate()).slice(-2)}.${(
+                '0' +
+                (date.getMonth() + 1)
+              ).slice(-2)}.${date.getFullYear().toString().slice(2)} ${(
+                '0' + date.getHours()
+              ).slice(-2)}:${('0' + date.getMinutes()).slice(-2)}`
+            }
+          }
+          console.log(formatDate(new Date(new Date() - 1))) // "right now"
+          console.log(formatDate(new Date(new Date() - 30 * 1000))) // "30 sec. ago"
+          console.log(formatDate(new Date(new Date() - 5 * 60 * 1000))) // "5 min. ago"
+          // 昨天的日期，例如 31.12.16 20:00
+          console.log(formatDate(new Date(new Date() - 86400 * 1000)))
+        },
+      },
+    }).mount('#root')
+  </script>
+
+  <style>
+    #root {
+      border: 1px solid #000000;
+      padding: 5px;
+    }
+    .result_des {
+      color: green;
+    }
+    .no_result {
+      color: red;
+    }
+    div {
+      margin: 10px 0;
+    }
+  </style>
+</html>

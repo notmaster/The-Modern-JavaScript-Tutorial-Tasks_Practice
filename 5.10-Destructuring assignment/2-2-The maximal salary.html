@@ -1,0 +1,97 @@
+<!--
+ * @Author: 
+ * @Date: 2022-02-10 15:57:41
+ * @LastEditTime: 2022-02-10 16:06:54
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3"></script>
+    <title>Vue 3 Template</title>
+  </head>
+  <body>
+    <div id="root">
+      <div>
+        This page is about:
+        https://zh.javascript.info/destructuring-assignment#zui-gao-xin-zii
+      </div>
+      <button @click="showResult">Execute the code</button>
+      count:{{ count }}
+      <div>
+        <span class="result_des">result:</span>
+        <span v-if="result !== ''">{{ result }}</span>
+        <span v-else class="no_result">No result</span>
+      </div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return { count: 0, result: '' }
+      },
+      methods: {
+        showResult() {
+          this.count += 1
+          // the code you want to excute
+          // Example:
+          // function showMessage(from, text = 'no text given') {
+          //   return from + ': ' + text
+          // }
+          // this.result = showMessage('Ann')
+          function topSalary(salaries) {
+            let name = null
+            let salary = 0
+            for (const item of Object.entries(salaries)) {
+              console.log(name + ' ' + salary)
+              if (item[1] > salary) {
+                name = item[0]
+                salary = item[1]
+              }
+            }
+            return name
+          }
+          let salaries = {
+            John: 100,
+            Pete: 300,
+            Mary: 250,
+          }
+          this.result = topSalary(salaries)
+
+          // 我的写法没问题，就是没将解构用上，以下是答案
+          function topSalary(salaries) {
+            let max = 0
+            let maxName = null
+
+            for (let [name, salary] of Object.entries(salaries)) {
+              if (max < salary) {
+                max = salary
+                maxName = name
+              }
+            }
+
+            return maxName
+          }
+        },
+      },
+    }).mount('#root')
+  </script>
+
+  <style>
+    #root {
+      border: 1px solid #000000;
+      padding: 5px;
+    }
+    .result_des {
+      color: green;
+    }
+    .no_result {
+      color: red;
+    }
+    div {
+      margin: 10px 0;
+    }
+  </style>
+</html>

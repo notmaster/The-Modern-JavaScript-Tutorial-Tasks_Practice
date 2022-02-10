@@ -1,0 +1,73 @@
+<!--
+ * @Author: 
+ * @Date: 2022-01-19 23:38:15
+ * @LastEditTime: 2022-01-20 00:09:36
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3"></script>
+    <title>Vue 3 Template</title>
+  </head>
+  <body>
+    <div id="root">
+      <div>
+        This page is about:
+        <a
+          target="_blank"
+          href="https://javascript.info/function-basics#function-pow-x-n"
+          >Write a function min(a,b) which returns the least of two numbers a
+          and b.</a
+        >
+      </div>
+      <button @click="showResult">Execute the code</button>
+      count:{{ count }}
+      <div>
+        <span class="result_des">result:</span>
+        <span v-if="result !== ''">{{ result }}</span>
+        <span v-else class="no_result">No result</span>
+      </div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return { count: 0, result: '' }
+      },
+      methods: {
+        showResult() {
+          this.count += 1
+          // the code you want to excute
+
+          function getMin(num1, num2) {
+            return num1 > num2 ? num1 : num1
+          }
+          let arr = []
+          arr.push(getMin(1, 2))
+          arr.push(getMin(3, 3))
+          arr.push(getMin(5, 4))
+          this.result = arr
+        },
+      },
+    }).mount('#root')
+  </script>
+
+  <style>
+    #root {
+      border: 1px solid #000000;
+      padding: 5px;
+    }
+    .result_des {
+      color: green;
+    }
+    .no_result {
+      color: red;
+    }
+    div {
+      margin: 10px 0;
+    }
+  </style>
+</html>

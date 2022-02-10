@@ -1,0 +1,84 @@
+<!--
+ * @Author: 
+ * @Date: 2022-01-19 23:48:38
+ * @LastEditTime: 2022-01-20 00:09:22
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3"></script>
+    <title>Vue 3 Template</title>
+  </head>
+  <body>
+    <div id="root">
+      <div>
+        This page is about:
+        <a
+          href="https://javascript.info/function-basics#function-pow-x-n"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Write a function pow(x,n) that returns x in power n. Or, in other
+          words, multiplies x by itself n times and returns the result.</a
+        >
+      </div>
+      <button @click="showResult">Execute the code</button>
+      count:{{ count }}
+      <div>
+        <span class="result_des">result:</span>
+        <span v-if="result !== ''">{{ result }}</span>
+        <span v-else class="no_result">No result</span>
+      </div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return { count: 0, result: '' }
+      },
+      methods: {
+        showResult() {
+          this.count += 1
+          // the code you want to excute
+
+          function pow(x, n) {
+            if (n < 2) return 'n must > 2'
+            let result = x
+            for (let index = 1; index < n; index++) {
+              console.log('index', index)
+              result *= x
+              console.log('result', result)
+            }
+            return result
+          }
+          // let arr = []
+          // arr.push(pow(3, 2)) // 9
+          // arr.push(pow(3, 3)) // 27
+          // arr.push(pow(3, 4)) // 81
+          // this.result = arr
+          let x = prompt('x?', '')
+          let n = prompt('n?', '')
+          this.result = pow(x, n)
+        },
+      },
+    }).mount('#root')
+  </script>
+
+  <style>
+    #root {
+      border: 1px solid #000000;
+      padding: 5px;
+    }
+    .result_des {
+      color: green;
+    }
+    .no_result {
+      color: red;
+    }
+    div {
+      margin: 10px 0;
+    }
+  </style>
+</html>

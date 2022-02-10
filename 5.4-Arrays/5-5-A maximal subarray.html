@@ -1,0 +1,87 @@
+<!--
+ * @Author: 
+ * @Date: 2022-01-27 01:18:37
+ * @LastEditTime: 2022-01-27 01:56:21
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3"></script>
+    <title>Vue 3 Template</title>
+  </head>
+  <body>
+    <div id="root">
+      <div>This page is about: (description)</div>
+      <button @click="showResult">Execute the code</button>
+      count:{{ count }}
+      <div>
+        <span class="result_des">result:</span>
+        <span v-if="result !== ''">{{ result }}</span>
+        <span v-else class="no_result">No result</span>
+      </div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return { count: 0, result: '' }
+      },
+      methods: {
+        showResult() {
+          this.count += 1
+          // the code you want to excute
+
+          // function getMaxSubSum(arr) {
+          //   let maxSum = 0
+          //   for (let i = 0; i < arr.length; i++) {
+          //     let subSum = 0
+          //     for (let j = i; j < arr.length; j++) {
+          //       subSum += arr[j]
+          //       maxSum = Math.max(maxSum, subSum)
+          //     }
+          //   }
+          //   console.log(maxSum)
+          //   return maxSum
+          // }
+          // 时间复杂度更低的算法
+          function getMaxSubSum(arr) {
+            let maxSum = 0
+            let subSum = 0
+            for (const num of arr) {
+              subSum += num
+              maxSum = Math.max(maxSum, subSum)
+              if (subSum < 0) subSum = 0
+            }
+            console.log(maxSum)
+            return maxSum
+          }
+          getMaxSubSum([-1, 2, 3, -9]) // == 5
+          getMaxSubSum([2, -1, 2, 3, -9]) // == 6
+          getMaxSubSum([-1, 2, 3, -9, 11]) // == 11
+          getMaxSubSum([-2, -1, 1, 2]) // == 3
+          getMaxSubSum([100, -9, 2, -3, 5]) // == 100
+          getMaxSubSum([1, 2, 3]) // == 6
+        },
+      },
+    }).mount('#root')
+  </script>
+
+  <style>
+    #root {
+      border: 1px solid #000000;
+      padding: 5px;
+    }
+    .result_des {
+      color: green;
+    }
+    .no_result {
+      color: red;
+    }
+    div {
+      margin: 10px 0;
+    }
+  </style>
+</html>

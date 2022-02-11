@@ -1,0 +1,74 @@
+<!--
+ * @Author: 
+ * @Date: 2022-02-11 13:02:08
+ * @LastEditTime: 2022-02-11 13:03:37
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3"></script>
+    <title>Vue 3 Template</title>
+  </head>
+  <body>
+    <div id="root">
+      <div>This page is about: (description)</div>
+      <button @click="showResult">Execute the code</button>
+      count:{{ count }}
+      <div>
+        <span class="result_des">result:</span>
+        <span v-if="result !== ''">{{ result }}</span>
+        <span v-else class="no_result">No result</span>
+      </div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return { count: 0, result: '' }
+      },
+      methods: {
+        showResult() {
+          this.count += 1
+          // the code you want to excute
+          // Example:
+          // function showMessage(from, text = 'no text given') {
+          //   return from + ': ' + text
+          // }
+          // this.result = showMessage('Ann')
+          function pow(x, n) {
+            return n == 1 ? x : x * pow(x, n - 1)
+          }
+          function pow2(x, n) {
+            let result = 1
+            // 再循环中，用 x 乘以 result n 次
+            for (let i = 0; i < n; i++) {
+              result *= x
+            }
+            return result
+          }
+          console.log(pow(2, 1))
+          console.log(pow2(2, 0))
+        },
+      },
+    }).mount('#root')
+  </script>
+
+  <style>
+    #root {
+      border: 1px solid #000000;
+      padding: 5px;
+    }
+    .result_des {
+      color: green;
+    }
+    .no_result {
+      color: red;
+    }
+    div {
+      margin: 10px 0;
+    }
+  </style>
+</html>

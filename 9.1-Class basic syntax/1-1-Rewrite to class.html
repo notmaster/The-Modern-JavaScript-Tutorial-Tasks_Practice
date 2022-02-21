@@ -1,0 +1,133 @@
+<!--
+ * @Author: notmaster
+ * @Date: 2022-02-21 17:50:16
+ * @LastEditTime: 2022-02-21 17:57:13
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3"></script>
+    <title>Vue 3 Template</title>
+  </head>
+  <body>
+    <div id="root">
+      <div>This page is about: (description)</div>
+      <button @click="showResult">Execute the code</button>
+      count:{{ count }}
+      <div>
+        <span class="result_des">result:</span>
+        <span v-if="result !== ''">{{ result }}</span>
+        <span v-else class="no_result">No result</span>
+      </div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return { count: 0, result: '' }
+      },
+      methods: {
+        showResult() {
+          this.count += 1
+          // the code you want to excute
+          // Example:
+          // function showMessage(from, text = 'no text given') {
+          //   return from + ': ' + text
+          // }
+          // this.result = showMessage('Ann')
+          function Clock({ template }) {
+            let timer
+
+            function render() {
+              let date = new Date()
+
+              let hours = date.getHours()
+              if (hours < 10) hours = '0' + hours
+
+              let mins = date.getMinutes()
+              if (mins < 10) mins = '0' + mins
+
+              let secs = date.getSeconds()
+              if (secs < 10) secs = '0' + secs
+
+              let output = template
+                .replace('h', hours)
+                .replace('m', mins)
+                .replace('s', secs)
+
+              console.log(output)
+            }
+
+            this.stop = function () {
+              clearInterval(timer)
+            }
+
+            this.start = function () {
+              render()
+              timer = setInterval(render, 1000)
+            }
+          }
+
+          let clock = new Clock({ template: 'h:m:s' })
+          clock.start()
+
+          class Clock2 {
+            constructor({ template }) {
+              this.template = template
+            }
+
+            render() {
+              let date = new Date()
+
+              let hours = date.getHours()
+              if (hours < 10) hours = '0' + hours
+
+              let mins = date.getMinutes()
+              if (mins < 10) mins = '0' + mins
+
+              let secs = date.getSeconds()
+              if (secs < 10) secs = '0' + secs
+
+              let output = this.template
+                .replace('h', hours)
+                .replace('m', mins)
+                .replace('s', secs)
+
+              console.log(output)
+            }
+
+            stop() {
+              clearInterval(this.timer)
+            }
+
+            start() {
+              this.render()
+              this.timer = setInterval(() => this.render(), 1000)
+            }
+          }
+          let clock2 = new Clock2({ template: 'h:m:s' })
+          clock2.start()
+        },
+      },
+    }).mount('#root')
+  </script>
+
+  <style>
+    #root {
+      border: 1px solid #000000;
+      padding: 5px;
+    }
+    .result_des {
+      color: green;
+    }
+    .no_result {
+      color: red;
+    }
+    div {
+      margin: 10px 0;
+    }
+  </style>
+</html>

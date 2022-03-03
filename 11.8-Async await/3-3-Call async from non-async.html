@@ -1,0 +1,74 @@
+<!--
+ * @Author: notmaster
+ * @Date: 2022-03-03 16:21:43
+ * @LastEditTime: 2022-03-03 16:25:58
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3"></script>
+    <title>Vue 3 Template</title>
+  </head>
+  <body>
+    <div id="root">
+      <div>This page is about: (description)</div>
+      <button @click="showResult">Execute the code</button>
+      count:{{ count }}
+      <div>
+        <span class="result_des">result:</span>
+        <span v-if="result !== ''">{{ result }}</span>
+        <span v-else class="no_result">No result</span>
+      </div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return { count: 0, result: '' }
+      },
+      methods: {
+        showResult() {
+          this.count += 1
+          // the code you want to excute
+          // Example:
+          // function showMessage(from, text = 'no text given') {
+          //   return from + ': ' + text
+          // }
+          // this.result = showMessage('Ann')
+          async function wait() {
+            await new Promise((resolve) => setTimeout(resolve, 1000))
+
+            return 10
+          }
+
+          function f() {
+            // ……这里你应该怎么写？
+            // 我们需要调用 async wait() 并等待以拿到结果 10
+            // 记住，我们不能使用 "await"
+            wait().then((result) => alert(result))
+          }
+          f()
+        },
+      },
+    }).mount('#root')
+  </script>
+
+  <style>
+    #root {
+      border: 1px solid #000000;
+      padding: 5px;
+    }
+    .result_des {
+      color: green;
+    }
+    .no_result {
+      color: red;
+    }
+    div {
+      margin: 10px 0;
+    }
+  </style>
+</html>

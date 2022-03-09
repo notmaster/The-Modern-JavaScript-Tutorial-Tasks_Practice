@@ -1,0 +1,80 @@
+<!--
+ * @Author: notmaster
+ * @Date: 2022-03-09 11:43:57
+ * @LastEditTime: 2022-03-09 11:51:03
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3"></script>
+    <title>Vue 3 Template</title>
+  </head>
+  <body>
+    <div id="root">
+      <div>This page is about: (description)</div>
+      <button @click="showResult">Execute the code</button>
+      count:{{ count }}
+      <div>
+        <span class="result_des">result:</span>
+        <span v-if="result !== ''">{{ result }}</span>
+        <span v-else class="no_result">No result</span>
+      </div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return { count: 0, result: '' }
+      },
+      methods: {
+        showResult() {
+          this.count += 1
+          // the code you want to excute
+          // Example:
+          // function showMessage(from, text = 'no text given') {
+          //   return from + ': ' + text
+          // }
+          // this.result = showMessage('Ann')
+          let array = [1, 2, 3]
+
+          array = new Proxy(array, {
+            /* 你的代码 */
+            get(target, prop, receiver) {
+              if (prop < 0) {
+                console.log(target.length)
+                console.log(prop)
+                return target[target.length + Number(prop)]
+              } else {
+                return target[prop]
+              }
+            },
+          })
+
+          alert(array[-1]) // 3
+          alert(array[-2]) // 2
+
+          // 其他数组功能应保持“原样”
+        },
+      },
+    }).mount('#root')
+  </script>
+
+  <style>
+    #root {
+      border: 1px solid #000000;
+      padding: 5px;
+    }
+    .result_des {
+      color: green;
+    }
+    .no_result {
+      color: red;
+    }
+    div {
+      margin: 10px 0;
+    }
+  </style>
+</html>
